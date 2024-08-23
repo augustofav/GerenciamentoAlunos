@@ -32,15 +32,15 @@ class Aluno extends Entidades {
         if (pedagogo.validarsenha(senha)) {
             this.senha = senha
         } else {
-            throw new Error("Senha inválida")
+            throw new Error("Senha invalida")
         }
     }
 
     visualizarNota() {
-        if (this.nota !== undefined) {
+        if (this.nota !== null) {
             console.log(`A nota do aluno ${this.nome} é: ${this.nota}`)
         } else {
-            console.log(`O aluno ${this.nome} não possui uma nota`)
+            console.log(`O aluno ${this.nome} nao possui uma nota`)
         }
     }
 
@@ -50,9 +50,9 @@ class Aluno extends Entidades {
 
     verMateriasMatriculado() {
         if (this.cursos.length > 0) {
-            console.log(`O aluno ${this.nome} está matriculado em: ${this.cursos.map(curso => curso.nome).join(', ')}`)
+            console.log(`O aluno ${this.nome} esta matriculado em: ${this.cursos.map(curso => curso.nome)}`)
         } else {
-            throw new Error("O aluno não está matriculado em nenhum curso")
+            throw new Error("O aluno nao esta matriculado em nenhum curso")
         }
     }
 
@@ -62,7 +62,7 @@ class Aluno extends Entidades {
             curso.alunos.push(this)
             console.log(`Aluno ${this.nome} matriculado no curso ${curso.nome}`)
         } else {
-            console.log(`Aluno ${this.nome} já está matriculado no curso ${curso.nome}`)
+            console.log(`Aluno ${this.nome} ja esta matriculado no curso ${curso.nome}`)
         }
     }
 
@@ -83,7 +83,7 @@ class Pedagogo extends Entidades {
     criarCurso(nome: string, materia: string) {
         let novoCurso = new Cursos(nome, materia)
         this.cursos.push(novoCurso)
-        console.log("Curso criado")
+        console.log("curso criado")
         console.log(novoCurso)
     }
 
@@ -92,7 +92,7 @@ class Pedagogo extends Entidades {
         if (curso) {
             aluno.matricularEmCurso(curso)
         } else {
-            console.log(`Curso ${nomeCurso} não encontrado`)
+            console.log(`curso ${nomeCurso} nao encontrado`)
         }
     }
 
@@ -103,10 +103,10 @@ class Pedagogo extends Entidades {
             let codigoMatricula = Math.floor(Math.random() * 10000)
             novoAluno.codigomatriculas.push(codigoMatricula)
             this.codigomatriculas.push(codigoMatricula)
-            console.log("Aluno cadastrado com sucesso")
+            console.log("aluno cadastrado com sucesso")
             console.log(novoAluno)
         } else {
-            console.log("Senha inválida")
+            console.log("Senha invalida")
         }
     }
 
@@ -118,7 +118,7 @@ class Pedagogo extends Entidades {
             console.log("Dados do aluno atualizados")
             console.log(aluno)
         } else {
-            console.log("Aluno não encontrado")
+            console.log("Aluno nao encontrado")
         }
     }
 
@@ -143,7 +143,14 @@ class Pedagogo extends Entidades {
     validarsenha(senha: number): boolean {
         return this.senhas.includes(senha)
     }
-}
+    removeraluno(nomealuno: string){
+        let alunoposicao = this.alunos.findIndex(aluno => aluno.nome === nomealuno);
+        if (alunoposicao > -1) {
+        let aluno = this.alunos[alunoposicao]
+        this.alunos.splice(alunoposicao)
+        console.log(`o ${this.nome} foi removido`)
+    }
+}}
 
 class Professor extends Entidades {
     alunos: Aluno[] = []
@@ -155,7 +162,7 @@ class Professor extends Entidades {
             this.cp = cp
             console.log(`Professor criado com CP ${cp}`)
         } else {
-            throw new Error("CP inválido")
+            throw new Error("CP invalido")
         }
     }
 
