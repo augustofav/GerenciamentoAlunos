@@ -14,6 +14,7 @@ class Cursos {
     nome: string
     materia: string
     alunos: Aluno[] = []
+    avaliacoes: string[] = []
 
     constructor(nome: string, materia: string) {
         this.nome = nome
@@ -125,7 +126,7 @@ class Pedagogo extends Entidades {
     gerarCP(): number {
         let cp = Math.floor(Math.random() * 10000)
         this.cps.push(cp)
-        console.log(`Código CP gerado: ${cp}`)
+        console.log(`Codigo CP gerado: ${cp}`)
         return cp
     }
 
@@ -155,6 +156,7 @@ class Pedagogo extends Entidades {
 class Professor extends Entidades {
     alunos: Aluno[] = []
     cp: number
+    cursos: Cursos[] = []
 
     constructor(nome: string, email: string, telefone: string, cp: number, pedagogo: Pedagogo) {
         super(nome, email, telefone)
@@ -175,8 +177,32 @@ class Professor extends Entidades {
         aluno.nota = novaNota
         console.log(`Nota do aluno ${aluno.nome} atualizada para ${novaNota}`)
     }
-}
-
+    criaravaliacao(nomeprova: string, materia: Cursos){
+        let avaliacao = this.cursos.find(curso => curso.nome === materia.nome)
+        if (avaliacao) {
+        materia.avaliacoes.push(nomeprova)
+    }
+    else{
+        throw new Error("nao existe essa materia")
+    } }
+    avaliaravaliacao(nota: number, nomealuno: string, nomemateria: string, nomeprova: string) {
+        let aluno = this.alunos.find(aluno => aluno.nome === nomealuno);
+        let materia = this.cursos.find(curso => curso.nome === nomemateria);
+        
+        if (aluno && materia) {
+            let avaliacaoExiste = materia.avaliacoes.includes(nomeprova);
+            
+            if (avaliacaoExiste) {
+                aluno.nota = nota;
+                console.log(`Nota ${nota} registrada para o aluno ${aluno.nome} na avaliacao ${nomeprova} da materia ${nomemateria}`);
+            } else {
+                throw new Error(`A avaliação ${nomeprova} nao existe na matéria ${nomemateria}`);
+            }
+        } else {
+            throw new Error("Aluno ou matéria nao encontrados.");
+        }}}
+    
+    
 class ResponsavelAluno extends Entidades {
     filho: Aluno
 
