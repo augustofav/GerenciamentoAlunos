@@ -52,11 +52,7 @@ class Aluno extends Entidades {
 
   verMateriasMatriculado() {
     if (this.cursos.length > 0) {
-      console.log(
-        `O aluno ${this.nome} esta matriculado em: ${this.cursos.map(
-          (curso) => curso.nome
-        )}`
-      )
+      console.log(`O aluno ${this.nome} esta matriculado em: ${this.cursos.map((curso) => curso.nome)}`)
     } else {
       throw new Error('O aluno nao esta matriculado em nenhum curso')
     }
