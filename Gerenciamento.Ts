@@ -74,9 +74,7 @@ class Aluno extends Entidades {
     }
   }
   darfeedbackprofessor(notaprofessor: number, nomeprofessor: string) {
-    let procurasprofessor = this.professores.find(
-      (professores) => professor.nome === nomeprofessor
-    )
+    let procurasprofessor = this.professores.find((professores) => professor.nome === nomeprofessor)
     if (procurasprofessor) {
       professor.nota.push(notaprofessor)
     } else {
@@ -176,22 +174,16 @@ class Pedagogo extends Entidades {
     }
   }
   calcularmediaprofessor(nomeprofessor: string): number {
-    const professor = this.professores.find(
-      (professor) => professor.nome === nomeprofessor
-    )
+    const professor = this.professores.find((professor) => professor.nome === nomeprofessor)
     if (professor) {
       if (professor.nota.length === 0) {
-        throw new Error('Nenhuma nota registrada para este professor')
-      }
-      const totalNotas = professor.nota.reduce(
-        (acumulado, notaatual) => acumulado + notaatual,
-        0
-      )
+        throw new Error('Nenhuma nota registrada para este professor') }
+      const totalNotas = professor.nota.reduce((acumulado, notaatual) => acumulado + notaatual,0)
       const media = totalNotas / professor.nota.length
-      console.log(`A média das notas do professor ${nomeprofessor} é: ${media}`)
+      console.log(`A media das notas do professor ${nomeprofessor} e: ${media}`)
       return media
     } else {
-      throw new Error('Professor não encontrado')
+      throw new Error('Professor nao encontrado')
     }
   }
 }
@@ -243,10 +235,8 @@ class Professor extends Entidades {
   ) {
     let aluno = this.alunos.find((aluno) => aluno.nome === nomealuno)
     let materia = this.cursos.find((curso) => curso.nome === nomemateria)
-
     if (aluno && materia) {
       let avaliacaoExiste = materia.avaliacoes.includes(nomeprova)
-
       if (avaliacaoExiste) {
         aluno.nota = nota
         console.log(
