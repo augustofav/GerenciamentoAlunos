@@ -160,10 +160,8 @@ class Pedagogo extends Entidades {
     return this.senhas.includes(senha)
   }
   removeraluno(nomealuno: string) {
-    let alunoposicao = this.alunos.findIndex(
-      (aluno) => aluno.nome === nomealuno
-    )
-    if (alunoposicao > -1) {
+    let alunoposicao = this.alunos.findIndex((aluno) => aluno.nome === nomealuno)
+    if (alunoposicao != -1) {
       let aluno = this.alunos[alunoposicao]
       this.alunos.splice(alunoposicao)
       console.log(`o ${this.nome} foi removido`)
